@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: colas <colas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgelin <cgelin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:52:29 by colas             #+#    #+#             */
-/*   Updated: 2023/05/01 10:25:46 by colas            ###   ########.fr       */
+/*   Updated: 2023/05/02 15:51:42 by cgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int is_white_space(char c);
 long long int ft_atol(const char *str);
 long long get_time();
 void join_threads(t_p *p);
+void	usleep_fix(long int time_in_ms);
 
 /* init */
 void init_philo(t_p *p);

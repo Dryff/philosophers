@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: colas <colas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgelin <cgelin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:42:51 by colas             #+#    #+#             */
-/*   Updated: 2023/04/24 12:35:50 by colas            ###   ########.fr       */
+/*   Updated: 2023/05/02 15:52:51 by cgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,14 @@ void	write_status(char *str, t_p *p, int phi_id)
 		printf("Philo %d %s", phi_id, str);
 	}
 	pthread_mutex_unlock(&p->writing_mutex);
+}
+
+void	usleep_fix(long int time_in_ms)
+{
+	long int	start_time;
+
+	start_time = 0;
+	start_time = get_time();
+	while ((get_time() - start_time) < time_in_ms)
+		usleep(time_in_ms / 10);
 }
