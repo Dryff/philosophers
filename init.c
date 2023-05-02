@@ -6,7 +6,7 @@
 /*   By: colas <colas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:51:27 by colas             #+#    #+#             */
-/*   Updated: 2023/04/22 16:38:10 by colas            ###   ########.fr       */
+/*   Updated: 2023/04/27 18:01:53 by colas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,4 @@ void	init_philo(t_p *p)
 		p->phi[i].finish = 0;
 		i++;
 	}
-	if (i == p->phi_nbr - 1)
-		p->phi[i].r_f = &p->phi[0].l_f;
-	else
-		p->phi[i].r_f = &p->phi[i + 1].l_f;
 }

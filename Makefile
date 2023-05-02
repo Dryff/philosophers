@@ -1,40 +1,54 @@
-NAME		=	philosophers
-HEADER		=	philo.h 
+NAME = philo
 
-SRCS		= 	main.c					\
-				parsing.c				\
-				init.c					\
-				check_and_get_params.c	\
-				error.c					\
-				exec.c					\
-				utils.c			
+CC		= cc -fsanitize=thread -g3 
+CFLAGS	= -Wall -Wextra -Werror
+AR		= ar rcs
+RM		= @rm -f
+HEADER	= philo.h
+DEF_COLOR = \033[0;39m
+YELLOW = \033[0;93m
+GREEN = \033[0;92m
+BLUE = \033[0;94m
+CYAN = \033[0;96m
 
-OBJS		:= $(SRCS:%.c=%.o)
+FILES = main						\
+		parsing						\
+		utils						\
+		init						\
+		error						\
+		exec						\
+		check_and_get_params								
 
-CC			=	cc
-FLAGS		=   -Wall -Wextra -Werror
+all: $(NAME)
 
-all:		$(NAME)
+SRCS_DIR = ./
+SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
 
-$(NAME): 	print $(OBJS)
-			$(CC) $(OBJS) -o $(NAME)
-			@echo "\033[35m Project successfully compiled"
+OBJS_DIR = ./
+OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
-$(OBJS): 	%.o:%.c ${HEADER}
-			@echo "\033[36m compiling: $<"
-			@$(CC) $(FLAGS) -c $< -o $@
+%.o:%.c $(HEADER)
+	@echo "$(YELLOW)Compiling: $< $(DEF_COLOR)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-print:		
-			@echo "\033[31m ~ Compiling philo ~"
+$(NAME): $(OBJS)
+	@echo "$(GREEN)😳😎philosophers compiled!😎😳$(DEF_COLOR)"
+	@${CC} ${FLAGS} ${SRCS} -o ${NAME}
+
 
 clean:
-	@echo "\033[31m > Removed all objects files <"
-	@rm -rf *.o 
+	@$(RM) $(OBJS)
+	@echo "$(CYAN)philosophers object files cleaned!$(DEF_COLOR)"
 
 fclean: clean
-	@echo "\033[31m * Removed $(NAME) *"	
-	@rm -rf $(NAME)
+	@$(RM) $(NAME)
+	@echo "$(CYAN)3$(DEF_COLOR)"
+	@sleep 0.2
+	@echo "$(CYAN)2$(DEF_COLOR)"
+	@sleep 0.2
+	@echo "$(CYAN)1$(DEF_COLOR)"
+	@sleep 0.2
+	@echo "$(GREEN)philosophers executable files cleaned!$(DEF_COLOR)"
+
 
 re: fclean all
-
-.PHONY:		all clean fclean re

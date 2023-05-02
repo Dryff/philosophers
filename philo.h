@@ -6,7 +6,7 @@
 /*   By: colas <colas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:52:29 by colas             #+#    #+#             */
-/*   Updated: 2023/04/24 12:35:14 by colas            ###   ########.fr       */
+/*   Updated: 2023/05/01 10:25:46 by colas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include <time.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 # define ERR_PARAM 1
 # define ERR_MALLOC 2
@@ -54,11 +55,13 @@ typedef struct s_p
 /* CHECK_PARAM */
 int check_params(int argc, char **argv);
 
+
 /* UTILS */
 int is_digit(int c);
 int is_white_space(char c);
 long long int ft_atol(const char *str);
 long long get_time();
+void join_threads(t_p *p);
 
 /* init */
 void init_philo(t_p *p);
