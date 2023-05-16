@@ -17,7 +17,9 @@ FILES = main						\
 		init						\
 		error						\
 		exec						\
-		check_and_get_params								
+		check_and_get_params		\
+		is_end						\
+		states							
 
 all: $(NAME)
 

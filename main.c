@@ -6,7 +6,7 @@
 /*   By: colas <colas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 18:46:53 by colas             #+#    #+#             */
-/*   Updated: 2023/04/27 19:24:38 by colas            ###   ########.fr       */
+/*   Updated: 2023/05/13 13:47:19 by colas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 	printf("Sleep : %lu\n", p.time_sleep);
 	printf("phi_nbr : %d\n", p.phi_nbr);
 	printf("max_meal : %d\n", p.max_meal);
+	printf("---------\n");
 	init_philo(&p);
 	exec_philo(&p);
 }

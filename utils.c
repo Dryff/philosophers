@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgelin <cgelin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: colas <colas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:42:51 by colas             #+#    #+#             */
-/*   Updated: 2023/05/02 15:52:51 by cgelin           ###   ########.fr       */
+/*   Updated: 2023/05/15 12:36:40 by colas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,28 +62,64 @@ long long int	ft_atol(const char *str)
 	return (nb);
 }
 
-void	write_status(char *str, t_p *p, int phi_id)
+char *get_color(int id)
 {
-	long int		time;
-
-	pthread_mutex_lock(&p->writing_mutex);
-	time = -1;
-	time = get_time() - p->start_time;
-	if (time >= 0 && time <= 2147483647)
-	// && !check_death(p, 0))
-	{
-		printf("%ld ", time);
-		printf("Philo %d %s", phi_id, str);
-	}
-	pthread_mutex_unlock(&p->writing_mutex);
+	if (id % 14 == 0)
+		return ("\033[0;37m");
+	if (id % 14 == 1)
+		return ("\033[0;31m");
+	if (id % 14 == 2)
+		return ("\033[0;33m");
+	if (id % 14 == 3)
+		return ("\033[0;34m");
+	if (id % 14 == 4)
+		return ("\033[0;35m");
+	if (id % 14 == 5)
+		return ("\033[0;36m");
+	if (id % 14 == 6)
+		return ("\033[0;32m");
+	if (id % 14 == 7)
+		return ("\033[1;37m");
+	if (id % 14 == 8)
+		return ("\033[1;31m");
+	if (id % 14 == 9)
+		return ("\033[1;33m");
+	if (id % 14 == 10)
+		return ("\033[1;34m");
+	if (id % 14 == 11)
+		return ("\033[1;35m");
+	if (id % 14 == 12)
+		return ("\033[1;36m");
+	if (id % 14 == 13)
+		return ("\033[1;32m");
+	return (NULL);
 }
 
-void	usleep_fix(long int time_in_ms)
+int	print_status(t_phi *phi, t_p  *p, char *state, char *emoji)
 {
-	long int	start_time;
+	long int		time;
+	(void)emoji;
+	pthread_mutex_lock(&phi->p->writing_mutex);
+	if (p->start_time == 0)
+		p->start_time = get_time();
+	time = get_time() - p->start_time;
+	if (time >= 0 && time <= 2147483647)
+	{
+		if (p->phi_died)
+			return (pthread_mutex_unlock(&phi->p->writing_mutex), -1);
+		printf("%s%-5ld ", get_color(phi->id), time);
+		printf("%d\033[0;37m %s\n", phi->id, state);
+	}
+	pthread_mutex_unlock(&phi->p->writing_mutex);
+	return (0);
+}
 
-	start_time = 0;
-	start_time = get_time();
-	while ((get_time() - start_time) < time_in_ms)
-		usleep(time_in_ms / 10);
+void	usleep_fix(unsigned long long time_ms)
+{
+	unsigned long long	time;
+
+	time = get_time();
+	usleep(time_ms * 900);
+	while (get_time() - time < time_ms)
+		usleep(100);
 }
