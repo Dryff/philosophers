@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: colas <colas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cgelin <cgelin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 19:42:51 by colas             #+#    #+#             */
-/*   Updated: 2023/05/15 12:36:40 by colas            ###   ########.fr       */
+/*   Updated: 2023/05/23 10:06:16 by cgelin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_white_space(char c)
 	return (0);
 }
 
-long long	get_time()
+long long	get_time(void)
 {
 	struct timeval	time;
 
@@ -62,64 +62,27 @@ long long int	ft_atol(const char *str)
 	return (nb);
 }
 
-char *get_color(int id)
+char	*get_color(int id)
 {
-	if (id % 14 == 0)
+	if (id % 10 == 0)
 		return ("\033[0;37m");
-	if (id % 14 == 1)
+	if (id % 10 == 1)
 		return ("\033[0;31m");
-	if (id % 14 == 2)
-		return ("\033[0;33m");
-	if (id % 14 == 3)
-		return ("\033[0;34m");
-	if (id % 14 == 4)
-		return ("\033[0;35m");
-	if (id % 14 == 5)
+	if (id % 10 == 2)
 		return ("\033[0;36m");
-	if (id % 14 == 6)
+	if (id % 10 == 3)
 		return ("\033[0;32m");
-	if (id % 14 == 7)
+	if (id % 10 == 4)
+		return ("\033[0;35m");
+	if (id % 10 == 5)
+		return ("\033[0;32m");
+	if (id % 10 == 6)
+		return ("\033[0;33m");
+	if (id % 10 == 7)
 		return ("\033[1;37m");
-	if (id % 14 == 8)
+	if (id % 10 == 8)
 		return ("\033[1;31m");
-	if (id % 14 == 9)
-		return ("\033[1;33m");
-	if (id % 14 == 10)
-		return ("\033[1;34m");
-	if (id % 14 == 11)
+	if (id % 10 == 9)
 		return ("\033[1;35m");
-	if (id % 14 == 12)
-		return ("\033[1;36m");
-	if (id % 14 == 13)
-		return ("\033[1;32m");
 	return (NULL);
-}
-
-int	print_status(t_phi *phi, t_p  *p, char *state, char *emoji)
-{
-	long int		time;
-	(void)emoji;
-	pthread_mutex_lock(&phi->p->writing_mutex);
-	if (p->start_time == 0)
-		p->start_time = get_time();
-	time = get_time() - p->start_time;
-	if (time >= 0 && time <= 2147483647)
-	{
-		if (p->phi_died)
-			return (pthread_mutex_unlock(&phi->p->writing_mutex), -1);
-		printf("%s%-5ld ", get_color(phi->id), time);
-		printf("%d\033[0;37m %s\n", phi->id, state);
-	}
-	pthread_mutex_unlock(&phi->p->writing_mutex);
-	return (0);
-}
-
-void	usleep_fix(unsigned long long time_ms)
-{
-	unsigned long long	time;
-
-	time = get_time();
-	usleep(time_ms * 900);
-	while (get_time() - time < time_ms)
-		usleep(100);
 }

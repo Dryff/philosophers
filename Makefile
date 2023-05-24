@@ -1,7 +1,7 @@
 NAME = philo
 
-CC		= cc -fsanitize=thread -g3 
-CFLAGS	= -Wall -Wextra -Werror
+CC		= cc -g3 
+CFLAGS	= -pthread -Wall -Wextra -Werror
 AR		= ar rcs
 RM		= @rm -f
 HEADER	= philo.h
@@ -18,7 +18,7 @@ FILES = main						\
 		error						\
 		exec						\
 		check_and_get_params		\
-		is_end						\
+		check_end						\
 		states							
 
 all: $(NAME)
@@ -35,7 +35,7 @@ OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 $(NAME): $(OBJS)
 	@echo "$(GREEN)😳😎philosophers compiled!😎😳$(DEF_COLOR)"
-	@${CC} ${FLAGS} ${SRCS} -o ${NAME}
+	@${CC} ${CFLAGS} ${SRCS} -o ${NAME}
 
 
 clean:
